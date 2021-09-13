@@ -1,0 +1,9 @@
+name: PcTrails
+version: '${project.version}'
+main: me.lordmefloun.pctrails.PcTrails
+api-version: 1.17
+authors: [ LordMefloun ]
+description: Trails plugin
+commands:
+  pctrail:
+    description: Main command for this plugin
