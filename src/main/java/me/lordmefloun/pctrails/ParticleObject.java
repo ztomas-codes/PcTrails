@@ -12,54 +12,36 @@ import java.util.ArrayList;
 
 public class ParticleObject {
 
-
     public static Configuration config = PcTrails.getPlugin(PcTrails.class).getConfig();
-
+    public static ArrayList<ParticleObject> particleObjectList = new ArrayList<>();
+    
     private ParticleEffect particleType;
     private double intensity;
     public PcTrails plugin;
-    private Integer number;
-
-    public static ArrayList<ParticleObject> particleObjectList = new ArrayList<>();
-
-
+    private int number;
 
     public ParticleObject(PcTrails plugin, ParticleEffect particleType, double intensity, Integer number){
-
-
         this.plugin = plugin;
         this.particleType = particleType;
         this.intensity = intensity;
         this.number = number;
-
-
     }
 
 
     public static void loadParticlesFromConfig(PcTrails pl){
-
         ConfigurationSection configSection = config.getConfigurationSection("Particles");
         if (configSection != null) {
             for (String key : configSection.getKeys(false)) {
-
                 String type = config.getString("Particles." + key + ".type");
-                Double intensity = config.getDouble("Particles." + key + ".intensity");
-                Integer number = config.getInt(key);
+                double intensity = config.getDouble("Particles." + key + ".intensity");
+                int number = config.getInt("Particles." + key + ".number");
 
-
-                particleObjectList.add(new ParticleObject( pl, ParticleEffect.valueOf(type),  intensity, number));
-
-
-
+                particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
             }
         }
-
-
     }
 
     public void spawn(Player p){
-
-
         getParticleType().display(p.getLocation().add(0, 1, 0));
     }
 
@@ -73,18 +55,15 @@ public class ParticleObject {
         return null;
     }
 
-
-
     public ParticleEffect getParticleType() {
         return particleType;
     }
-
 
     public double getIntensity() {
         return intensity;
     }
 
-    public Integer getNumber() {
+    public int getNumber() {
         return number;
     }
 }
