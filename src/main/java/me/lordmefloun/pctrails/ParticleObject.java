@@ -34,7 +34,7 @@ public class ParticleObject {
             for (String key : configSection.getKeys(false)) {
                 String type = config.getString("Particles." + key + ".type");
                 double intensity = config.getDouble("Particles." + key + ".intensity");
-                int number = config.getInt("Particles." + key + ".number");
+                int number = config.getInt(key);
 
                 particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
             }
