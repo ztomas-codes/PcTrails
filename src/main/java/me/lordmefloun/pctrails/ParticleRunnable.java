@@ -7,32 +7,36 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Map;
 import java.util.UUID;
 
-public class ParticleRunnable {
+public class ParticleRunnable extends BukkitRunnable {
     PcTrails plugin;
 
     public ParticleRunnable(PcTrails plugin){
         this.plugin = plugin;
     }
 
-    public void start(){
-        new BukkitRunnable(){
-
-            @Override
-            public void run(){
+    @Override
+    public void run(){
 
 
-                for (Map.Entry<UUID, ParticleObject> entry : plugin.playerTrail.entrySet()) {
+        for (Map.Entry<UUID, ParticleObject> entry : plugin.playerTrail.entrySet()) {
 
-                    Player p = Bukkit.getPlayer(entry.getKey());
-                    entry.getValue().spawn(p);
-
-
-                }
+            Player p = Bukkit.getPlayer(entry.getKey());
 
 
+            for (int j = 0; j < entry.getValue().getIntensity(); j++) {
 
-
+                entry.getValue().getParticleType().display(p.getLocation());
             }
-        }.runTaskTimer(plugin, 0, 2);
+
+
+
+            entry.getValue().spawn(p);
+
+
+        }
+
+
+
+
     }
 }

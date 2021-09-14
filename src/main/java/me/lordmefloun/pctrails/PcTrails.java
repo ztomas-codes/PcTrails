@@ -24,7 +24,7 @@ public final class PcTrails extends JavaPlugin {
 
 
         ParticleRunnable pr = new ParticleRunnable(this);
-        pr.start();
+        pr.runTaskTimer(this, 0, 1);
 
 
 
