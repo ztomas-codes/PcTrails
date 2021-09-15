@@ -25,10 +25,19 @@ public class Command implements CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]) != null){
 
+                    Player p = Bukkit.getPlayer(args[1]);
+
+                    if (args[2].equalsIgnoreCase("0")){
+                        plugin.playerTrail.remove(p.getUniqueId());
+                        Utils.sendSenderMessage(sender, "&aÚspešně vypnut trail");
+                        return false;
+                    }
+
                     if(ParticleObject.particleObjectByNumber(Integer.parseInt( args[2])) != null){
 
 
-                        Player p = Bukkit.getPlayer(args[1]);
+
+
 
                         plugin.playerTrail.put(p.getUniqueId(), ParticleObject.particleObjectByNumber(Integer.parseInt( args[2])));
 

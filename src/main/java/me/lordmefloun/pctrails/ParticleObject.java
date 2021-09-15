@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import xyz.xenondevs.particle.ParticleBuilder;
 import xyz.xenondevs.particle.ParticleEffect;
 
 import java.util.ArrayList;
@@ -16,11 +17,11 @@ public class ParticleObject {
     public static ArrayList<ParticleObject> particleObjectList = new ArrayList<>();
     
     private ParticleEffect particleType;
-    private double intensity;
+    private int intensity;
     public PcTrails plugin;
     private int number;
 
-    public ParticleObject(PcTrails plugin, ParticleEffect particleType, double intensity, Integer number){
+    public ParticleObject(PcTrails plugin, ParticleEffect particleType, int intensity, Integer number){
         this.plugin = plugin;
         this.particleType = particleType;
         this.intensity = intensity;
@@ -33,16 +34,35 @@ public class ParticleObject {
         if (configSection != null) {
             for (String key : configSection.getKeys(false)) {
                 String type = config.getString("Particles." + key + ".type");
-                double intensity = config.getDouble("Particles." + key + ".intensity");
-                int number = config.getInt(key);
+                int intensity = config.getInt("Particles." + key + ".intensity");
+                int number = Integer.parseInt( key);
 
-                particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
+
+
+                if (number != 0)
+                    particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
+                else{
+                    System.out.println("Particle 0 cannot be added, please change it to 1 or something else");
+                }
+
+
             }
         }
     }
 
     public void spawn(Player p){
-        getParticleType().display(p.getLocation().add(0, 1, 0));
+
+
+        if (intensity == 0){
+            getParticleType().display(p.getLocation().add(0, 1, 0));
+        }
+        else {
+            new ParticleBuilder(getParticleType(), p.getLocation())
+                    .setAmount(getIntensity())
+                    .display();
+        }
+
+
     }
 
 
@@ -59,7 +79,7 @@ public class ParticleObject {
         return particleType;
     }
 
-    public double getIntensity() {
+    public int getIntensity() {
         return intensity;
     }
 
