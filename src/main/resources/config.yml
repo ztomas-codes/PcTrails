@@ -5,3 +5,12 @@ Particles:
   2:
     type: SMOKE_LARGE
     intensity: 1
+
+
+database:
+  host: localhost
+  port: 3306
+  database: mcdb
+  user: root
+  password:
+  table: trails_of_players

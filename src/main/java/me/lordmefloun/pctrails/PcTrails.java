@@ -9,9 +9,13 @@ public final class PcTrails extends JavaPlugin {
 
 
     public HashMap<UUID, ParticleObject> playerTrail = new HashMap<>();
+    public MySql mysql = new MySql(this);
+
 
     @Override
     public void onEnable() {
+
+        mysql.mysqlSetup();
 
 
 

@@ -22,7 +22,9 @@ public class ParticleRunnable extends BukkitRunnable {
 
             Player p = Bukkit.getPlayer(entry.getKey());
 
-            entry.getValue().spawn(p);
+
+                entry.getValue().spawn(p);
+
 
 
         }
