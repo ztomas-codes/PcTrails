@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ParticleRunnable extends BukkitRunnable {
-    PcTrails plugin;
+    private PcTrails plugin;
 
     public ParticleRunnable(PcTrails plugin){
         this.plugin = plugin;
@@ -16,21 +16,9 @@ public class ParticleRunnable extends BukkitRunnable {
 
     @Override
     public void run(){
-
-
         for (Map.Entry<UUID, ParticleObject> entry : plugin.playerTrail.entrySet()) {
-
             Player p = Bukkit.getPlayer(entry.getKey());
-
-
-                entry.getValue().spawn(p);
-
-
-
+            entry.getValue().spawn(p);
         }
-
-
-
-
     }
 }

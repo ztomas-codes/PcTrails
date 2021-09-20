@@ -7,32 +7,20 @@ import java.util.UUID;
 
 public final class PcTrails extends JavaPlugin {
 
-
     public HashMap<UUID, ParticleObject> playerTrail = new HashMap<>();
     public MySql mysql = new MySql(this);
 
-
     @Override
     public void onEnable() {
-
-        mysql.mysqlSetup();
-
-
-
         saveDefaultConfig();
+        mysql.mysqlSetup();
         ParticleObject.loadParticlesFromConfig(this);
 
         getCommand("pctrail").setExecutor(new Command(this));
         getServer().getPluginManager().registerEvents(new Events(this), this);
 
-
-
         ParticleRunnable pr = new ParticleRunnable(this);
         pr.runTaskTimer(this, 0, 1);
-
-
-
-
     }
 
     @Override

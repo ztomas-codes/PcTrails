@@ -18,7 +18,7 @@ public class ParticleObject {
     
     private ParticleEffect particleType;
     private int intensity;
-    public PcTrails plugin;
+    private PcTrails plugin;
     private int number;
 
     public ParticleObject(PcTrails plugin, ParticleEffect particleType, int intensity, Integer number){
@@ -28,7 +28,6 @@ public class ParticleObject {
         this.number = number;
     }
 
-
     public static void loadParticlesFromConfig(PcTrails pl){
         ConfigurationSection configSection = config.getConfigurationSection("Particles");
         if (configSection != null) {
@@ -36,9 +35,6 @@ public class ParticleObject {
                 String type = config.getString("Particles." + key + ".type");
                 int intensity = config.getInt("Particles." + key + ".intensity");
                 int number = Integer.parseInt( key);
-
-
-
                 if (number != 0)
                     particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
                 else{
@@ -51,8 +47,6 @@ public class ParticleObject {
     }
 
     public void spawn(Player p){
-
-
         if (intensity == 0){
             getParticleType().display(p.getLocation().add(0, 1, 0));
         }
@@ -61,10 +55,7 @@ public class ParticleObject {
                     .setAmount(getIntensity())
                     .display();
         }
-
-
     }
-
 
     public static ParticleObject particleObjectByNumber(Integer num){
         for (ParticleObject po : particleObjectList){
