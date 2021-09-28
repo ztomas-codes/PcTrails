@@ -16,6 +16,13 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        if (sender instanceof Player){
+            Player p = (Player) sender;
+            if (!p.hasPermission("pctrails.set")){
+                Utils.sendSenderMessage(sender, "&cNemáš na tento příkaz povolení");
+                return false;
+            }
+        }
         if (args.length == 3){
             if (args[0].equalsIgnoreCase("set")){
                 if (Bukkit.getPlayer(args[1]) != null){
