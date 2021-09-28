@@ -20,12 +20,14 @@ public class ParticleObject {
     private int intensity;
     private PcTrails plugin;
     private int number;
+    private double offset;
 
-    public ParticleObject(PcTrails plugin, ParticleEffect particleType, int intensity, Integer number){
+    public ParticleObject(PcTrails plugin, ParticleEffect particleType, int intensity, int number, double offset){
         this.plugin = plugin;
         this.particleType = particleType;
         this.intensity = intensity;
         this.number = number;
+        this.offset = offset;
     }
 
     public static void loadParticlesFromConfig(PcTrails pl){
@@ -34,9 +36,10 @@ public class ParticleObject {
             for (String key : configSection.getKeys(false)) {
                 String type = config.getString("Particles." + key + ".type");
                 int intensity = config.getInt("Particles." + key + ".intensity");
+                double offset = config.getDouble("Particles." + key + ".offset");
                 int number = Integer.parseInt( key);
                 if (number != 0)
-                    particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number));
+                    particleObjectList.add(new ParticleObject(pl, ParticleEffect.valueOf(type), intensity, number, offset));
                 else{
                     System.out.println("Particle 0 cannot be added, please change it to 1 or something else");
                 }
@@ -51,7 +54,7 @@ public class ParticleObject {
             getParticleType().display(p.getLocation().add(0, 1, 0));
         }
         else {
-            new ParticleBuilder(getParticleType(), p.getLocation())
+            new ParticleBuilder(getParticleType(), p.getLocation().add(0, offset, 0))
                     .setAmount(getIntensity())
                     .display();
         }
