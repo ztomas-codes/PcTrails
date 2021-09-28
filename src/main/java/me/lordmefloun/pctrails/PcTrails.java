@@ -20,7 +20,7 @@ public final class PcTrails extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Events(this), this);
 
         ParticleRunnable pr = new ParticleRunnable(this);
-        pr.runTaskTimer(this, 0, 1);
+        pr.runTaskTimer(this, 0, 2);
     }
 
     @Override
